@@ -1,8 +1,16 @@
 [tool.poetry]
 name = "bopku"
 version = "0.1.0"
-description = ""
-authors = ["hexatester <revolusi147id@gmail.com>"]
+description = "Alat bantu administrasi BOP (Bantuan Operasional) Paud."
+authors = ["hexatester <habibrohman@protonmail.com>"]
+license = "GPLv3"
+readme = "README.md"
+homepage = "https://dapodix.github.io/bopku/"
+repository = "https://github.com/dapodix/bopku"
+include = [
+    "LICENSE",
+    "README.md",
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"
