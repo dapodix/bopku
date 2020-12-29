@@ -19,21 +19,30 @@ def get_config_dir() -> str:
     return os.path.realpath(ret)
 
 
-def join(to: str, fr: str = get_config_dir()) -> str:
+CONFIG_DIR = get_config_dir()
+
+
+def join(to: str, fr: str = CONFIG_DIR) -> str:
     return os.path.join(fr, to)
+
+
+if not os.path.exists(CONFIG_DIR):
+    os.makedirs(CONFIG_DIR, exist_ok=True)
+    with open(join("README"), "w") as f:
+        f.write("Folder ini diatur oleh aplikasi bopku.\n")
+
+CONFIG_FILEPATH = join("config.json")
 
 
 @dataclass
 class Config:
     app: str = "bopku"
-    directory: str = get_config_dir()
+    directory: str = CONFIG_DIR
     database_uri: str = os.environ.get(
         "DATABASE_URL", "sqlite:///" + join("app.sqlite")
     )
     session: int = 1
 
-
-CONFIG_FILEPATH = join("config.json")
 
 config = Config()
 
