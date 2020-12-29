@@ -7,9 +7,12 @@ from bopku.db import Base
 class Sekolah(Base):
     __tablename__ = "sekolah"
     id: int = Column(Integer, primary_key=True)
-    nama: str = Column(String)
+    nama: str = Column(String, nullable=False)
+    email: str = Column(String, nullable=True)
     # Cred
-    email: str = Column(String)
+    server_dapodik: str = Column(String, nullable=True)
+    email_dapodik: str = Column(String, nullable=False)
+    email_simdak: str = Column(String, nullable=False)
     password: str = Column(String, nullable=True)
     token: str = Column(String, nullable=True)
     # Debug time
