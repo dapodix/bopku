@@ -1,17 +1,21 @@
+import os
+import sys
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from sqlalchemy import engine_from_config, pool
 
-from alembic import context
-from bopku.config import config as bopku_config
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+
+from alembic import context  # NOQA
+from bopku.config import config as bopku_config  # NOQA
 from bopku.db import Base  # NOQA
 from bopku.models import *  # NOQA
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-config.set_main_option('sqlalchemy.url', bopku_config.database_uri)
+config.set_main_option("sqlalchemy.url", bopku_config.database_uri)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -67,9 +71,7 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()
