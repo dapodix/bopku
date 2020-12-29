@@ -1,5 +1,8 @@
+from dapodik_webservice import DapodikWebservice
+from dataclasses import asdict
 from datetime import datetime
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, func
+from typing import Optional
 
 from bopku.db import Base
 
@@ -46,5 +49,37 @@ class Sekolah(Base):
     kabupaten_kota: str = Column(String, nullable=True)
     provinsi: str = Column(String, nullable=True)
 
+    def __init__(
+        self,
+        token: str,
+        npsn: str,
+        email_simdak: str,
+        password_simdak: str,
+        server_dapodik: str = "http://localhost:5774",
+    ):
+        self.token = token
+        self.npsn = npsn
+        self.email_simdak = email_simdak
+        self.password_simdak = password_simdak
+        self.server_dapodik = server_dapodik
+        self.__ws__: Optional[DapodikWebservice] = None
+        try:
+            sekolah: dict = asdict(self.ws.sekolah)
+            for key, value in sekolah.items():
+                setattr(self, key, value)
+        except Exception:
+            pass
+
     def __str__(self) -> str:
         return self.nama
+
+    @property
+    def ws(self) -> DapodikWebservice:
+        if self.__ws__:
+            return self.__ws__
+        self.__ws__ = DapodikWebservice(
+            self.token,
+            self.npsn,
+            self.server_dapodik,
+        )
+        return self.__ws__
