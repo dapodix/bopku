@@ -8,14 +8,14 @@ repos:
           - --diff
         exclude: bopku/alembic
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.1
+    rev: 3.8.4
     hooks:
       - id: flake8
         args:
           - --ignore=E501
         exclude: bopku/alembic
-  - repo: git://github.com/pre-commit/mirrors-pylint
-    rev: v2.5.3
+  - repo: https://github.com/pre-commit/mirrors-pylint
+    rev: v2.6.0
     hooks:
       - id: pylint
         files: ^bopku/.*\.py$
@@ -24,7 +24,7 @@ repos:
           - --disable=import-error
         exclude: bopku/alembic
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v0.770"
+    rev: "v0.790"
     hooks:
       - id: mypy
         files: ^bopku/.*\.py$
